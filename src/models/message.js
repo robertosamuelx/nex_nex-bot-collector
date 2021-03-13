@@ -2,5 +2,6 @@ module.exports = {
     user : '',
     type: '',
     body: '',
-    date: new Date()
+    date: new Date(),
+    to: ''
 }

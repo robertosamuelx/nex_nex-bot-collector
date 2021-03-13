@@ -8,6 +8,11 @@ module.exports = {
         return this
     },
 
+    setTo(to=''){
+        Message.to = to
+        return this
+    },
+
     setBody(body = ''){
         Message.body = body
         return this
@@ -24,7 +29,8 @@ module.exports = {
     },
 
     async sendMessage(){
-        const { data } = await axios.post(process.env.MESSAGE_ENDPOINT, Message)
+        Message.date = new Date()
+        const { data } = await axios.post(process.env.MESSAGE_ENDPOINT_DEV, Message)
         return data
     }
 }
