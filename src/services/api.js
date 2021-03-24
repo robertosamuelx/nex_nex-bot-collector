@@ -30,7 +30,7 @@ module.exports = {
 
     async sendMessage(){
         Message.date = new Date()
-        const { data } = await axios.post(process.env.MESSAGE_ENDPOINT_DEV, Message)
+        const { data } = await axios.post(process.env.MESSAGE_ENDPOINT, Message)
         return data
     }
 }

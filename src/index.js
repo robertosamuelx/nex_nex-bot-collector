@@ -45,6 +45,11 @@ venom.create(
         const response = contacts.filter(contact => contact.id.user === id)
         return res.status(200).json(response)
     })
+
+    app.get('/start', (req, res) => {
+        console.log('the application has been started')
+        return res.status(200).json({'response': 'OK'})
+    })
     
     client.onMessage( async (message) => {
         const user = message.from
