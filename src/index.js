@@ -8,7 +8,7 @@ const cors = require('cors')
 
 app.use(cors())
 app.use(express.json())
-app.listen(5000 || process.env.PORT, () => {
+app.listen(process.env.PORT, () => {
     console.log('server bot is running')
 })
 
