@@ -33,7 +33,7 @@ venom.create(
         const response =  contacts.map(contact => {
             return {
                 number: contact.id.user,
-                name: contact.name
+                name: contact.formattedName
             }
         })
         return res.status(200).json(response)
