@@ -64,7 +64,7 @@ venom.create(
                 .setUser(user)
                 .setType(message.isMedia || message.isMMS ? 'media' : 'text')
                 .setTo(process.env.MY_NUMBER)
-                .sendFileMessage(buffer)
+                .sendFileMessage(fileName)
 
             if(result.response !== '')
                 await client.sendText(user, result.response).then(() => {console.log('sucess')}).catch(err => {console.log(err)})
