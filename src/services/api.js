@@ -31,13 +31,13 @@ module.exports = {
         return this
     },
 
-    async sendFileMessage(fileName){
+    async sendFileMessage(buffer){
         const form = new FormData()
         form.append('user', Message.user)
         form.append('to', Message.to)
         form.append('type', Message.type)
         form.append('date', DateTime.now().setZone('America/Sao_Paulo').toJSDate().toString())
-        form.append('file', file.get(fileName))
+        form.append('file', buffer)
         const { data } = await axios.post(process.env.MESSAGE_ENDPOINT, form, { headers: { ...form.getHeaders() } })
         return data
     },
