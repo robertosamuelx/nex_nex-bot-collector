@@ -5,6 +5,7 @@ const api = require('./services/api')
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const file = require('./services/file')
 
 app.use(cors())
 app.use(express.json())
@@ -54,18 +55,34 @@ venom.create(
     client.onMessage( async (message) => {
         const user = message.from
         console.log(user)
-        const msg = message.body.toLowerCase()
 
-        const result = await api
-            .setUser(user)
-            .setBody(msg)
-            .setType(message.isMedia || message.isMMS ? 'media' : 'text')
-            .setTo(process.env.MY_NUMBER)
-            .sendMessage()
+        if(message.isMedia === true || message.isMMS === true){
+            const buffer = await client.decryptFile(message)
+            const fileName = await file.save(buffer, message)
 
-        if(result.response !== '')
-            await client.sendText(user, result.response).then(() => {console.log('sucess')}).catch(err => {console.log(err)})
+            const result = await api
+                .setUser(user)
+                .setType(message.isMedia || message.isMMS ? 'media' : 'text')
+                .setTo(process.env.MY_NUMBER)
+                .sendFileMessage(fileName)
 
+            if(result.response !== '')
+                await client.sendText(user, result.response).then(() => {console.log('sucess')}).catch(err => {console.log(err)})
+        }
+
+        else {
+            const msg = message.body.toLowerCase()
+    
+            const result = await api
+                .setUser(user)
+                .setBody(msg)
+                .setType(message.isMedia || message.isMMS ? 'media' : 'text')
+                .setTo(process.env.MY_NUMBER)
+                .sendMessage()
+    
+            if(result.response !== '')
+                await client.sendText(user, result.response).then(() => {console.log('sucess')}).catch(err => {console.log(err)})
+        }
     })
     }).catch( err => {
         console.log('Error: '+ err)
