@@ -5,7 +5,7 @@ const { DateTime } = require('luxon')
 module.exports = {
     async save(buffer, message){
         const now = DateTime.now().setZone('America/Sao_Paulo').toMillis()
-        const fileName = `tmp/file_${now}.${mime.extension(message.mimetype)}`
+        const fileName = `file_${now}.${mime.extension(message.mimetype)}`
         await fs.writeFile(fileName, buffer, err => {
             console.error(err)
         })
@@ -13,7 +13,6 @@ module.exports = {
     },
 
     get(fileName=''){
-        console.log('chegou aqui')
         return fs.createReadStream(fileName)
     }
 }

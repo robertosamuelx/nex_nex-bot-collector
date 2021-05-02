@@ -38,7 +38,7 @@ module.exports = {
         form.append('type', Message.type)
         form.append('date', DateTime.now().setZone('America/Sao_Paulo').toJSDate().toString())
         form.append('file', file.get(fileName))
-        form.append('body', '')
+        form.append('body', Message.body)
         const { data } = await axios.post(process.env.MESSAGE_ENDPOINT, form, { headers: { ...form.getHeaders() } })
         return data
     },

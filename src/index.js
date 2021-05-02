@@ -58,12 +58,14 @@ venom.create(
 
         if(message.isMedia === true || message.isMMS === true){
             const buffer = await client.decryptFile(message)
+            
             const fileName = await file.save(buffer, message)
 
             const result = await api
                 .setUser(user)
-                .setType(message.isMedia || message.isMMS ? 'media' : 'text')
+                .setType('media')
                 .setTo(process.env.MY_NUMBER)
+                .setBody('')
                 .sendFileMessage(fileName)
 
             if(result.response !== '')
@@ -76,7 +78,7 @@ venom.create(
             const result = await api
                 .setUser(user)
                 .setBody(msg)
-                .setType(message.isMedia || message.isMMS ? 'media' : 'text')
+                .setType('text')
                 .setTo(process.env.MY_NUMBER)
                 .sendMessage()
     
