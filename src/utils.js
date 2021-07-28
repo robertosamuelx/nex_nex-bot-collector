@@ -24,6 +24,6 @@ const options = {
   disableWelcome: true, // Will disable the welcoming message which appears in the beginning
   updatesLog: true, // Logs info updates automatically in terminal
   autoClose: 0, // Automatically closes the venom-bot only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false)
-  createPathFileToken: true, //crea
+  createPathFileToken: false, //crea
 }
 module.exports = {options}

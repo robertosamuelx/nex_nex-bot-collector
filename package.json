@@ -13,7 +13,7 @@
     "luxon": "^1.26.0",
     "mime-types": "^2.1.30",
     "morgan": "^1.10.0",
-    "venom-bot": "^3.0.6"
+    "venom-bot": "^3.0.21"
   },
   "scripts": {
     "start": "node src/index.js"

@@ -31,13 +31,12 @@ venom.create(
 
     app.get('/contacts', async (req, res) => {
         const contacts = await client.getAllContacts()
-        const response =  contacts.map(contact => {
-            return {
-                number: contact.id.user,
-                name: contact.formattedName
-            }
-        })
-        return res.status(200).json(response)
+        const filter = req.headers['filter']
+        const mappedContacts = contacts.map(contact => { return { number: contact.id.user, name: contact.formattedName} })
+        if(filter === "")
+            return res.status(200).json(mappedContacts)
+        else
+            return res.status(200).json(mappedContacts.filter(contact => contact.name.includes(filter)))
     })
 
     app.get('/contacts/:id', async (req, res) => {
@@ -45,11 +44,6 @@ venom.create(
         const { id } = req.params
         const response = contacts.filter(contact => contact.id.user === id)
         return res.status(200).json(response)
-    })
-
-    app.get('/start', (req, res) => {
-        console.log('the application has been started')
-        return res.status(200).json({'response': 'OK'})
     })
     
     client.onMessage( async (message) => {
