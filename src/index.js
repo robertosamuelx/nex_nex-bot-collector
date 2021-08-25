@@ -50,7 +50,7 @@ venom.create(
         const user = message.from
         console.log(user)
 
-        if(message.isMedia === true || message.isMMS === true){
+        if(message.isMedia === true && message.isGroupMsg == false && user !== 'status'){
             const buffer = await client.decryptFile(message)
             
             const fileName = await file.save(buffer, message)
