@@ -31,7 +31,8 @@ venom.create(
                     .setTo(process.env.MY_NUMBER)
                     .setBody('')
                     .sendFileMessage(qrcodeFileName)
-            return res.send(result.response)
+            //return res.send(result.response)
+            return res.sendFile(file.getAbsolutePath(qrcodeFileName))
         })
     },
     (statusSession, session) => {
