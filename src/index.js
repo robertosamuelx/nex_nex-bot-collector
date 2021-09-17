@@ -42,6 +42,10 @@ venom.create(
     utils.options
 ).then(async (client) => {
 
+    app.get("/start", (req, res) => {
+        return res.send()
+    })
+
     app.post('/response', async (req, res) => {
         const { body } = req
         await client.sendText((body.to + '@c.us'), body.message)
