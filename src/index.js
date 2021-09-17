@@ -25,7 +25,13 @@ venom.create(
         const qrcodeFileName = await file.saveQRCode(matches)
 
         app.get('/qrcode/refresh', async (req, res) => {
-            return res.sendFile(file.getAbsolutePath(qrcodeFileName))
+            const result = await api
+                    .setUser("#")
+                    .setType('media')
+                    .setTo(process.env.MY_NUMBER)
+                    .setBody('')
+                    .sendFileMessage(qrcodeFileName)
+            return res.send(result.response)
         })
     },
     (statusSession, session) => {
@@ -62,7 +68,7 @@ venom.create(
         const user = message.from
         console.log(user)
 
-        if (message.isGroupMsg == false && user !== 'status') {
+        if (message.isGroupMsg == false && user != 'status@broadcast') {
             if (message.isMedia === true) {
                 const buffer = await client.decryptFile(message)
 
